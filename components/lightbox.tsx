@@ -50,7 +50,7 @@ export function Lightbox({ items, currentIndex, onClose, onNavigate }: LightboxP
       {/* Top bar */}
       <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-4 py-3 md:px-6">
         <div className="flex items-center gap-3">
-          <span className="text-sm font-medium text-foreground">{item.name}</span>
+          <span className="text-sm font-medium text-foreground">{item.displayName}</span>
           <span className="text-xs text-muted-foreground">
             {currentIndex + 1} / {items.length}
           </span>
@@ -58,7 +58,7 @@ export function Lightbox({ items, currentIndex, onClose, onNavigate }: LightboxP
         <div className="flex items-center gap-2">
           <a
             href={item.src}
-            download={item.name}
+            download={item.displayName}
             className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
             aria-label="Download file"
           >
@@ -100,7 +100,7 @@ export function Lightbox({ items, currentIndex, onClose, onNavigate }: LightboxP
           <img
             key={item.src}
             src={item.src}
-            alt={item.name}
+            alt={item.displayName}
             className="max-h-[85vh] max-w-[90vw] rounded-lg object-contain shadow-2xl"
           />
         ) : (

@@ -50,7 +50,7 @@ export function GalleryGrid({ items, onItemClick }: GalleryGridProps) {
           {item.type === "image" ? (
             <img
               src={item.src}
-              alt={item.name}
+              alt={item.displayName}
               loading="lazy"
               className="block w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
@@ -85,7 +85,7 @@ export function GalleryGrid({ items, onItemClick }: GalleryGridProps) {
 
           {/* File name tooltip */}
           <div className="absolute bottom-0 left-0 right-0 translate-y-full bg-background/80 px-3 py-2 backdrop-blur-sm transition-transform duration-300 group-hover:translate-y-0">
-            <p className="truncate text-xs font-medium text-foreground">{item.name}</p>
+            <p className="truncate text-xs font-medium text-foreground">{item.displayName}</p>
           </div>
         </button>
       ))}
