@@ -72,9 +72,9 @@ export function GalleryGrid({ items, onItemClick }: GalleryGridProps) {
                   e.currentTarget.currentTime = 0
                 }}
               />
-              <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-background/60 backdrop-blur-sm transition-transform duration-300 group-hover:scale-110">
-                  <Play className="h-5 w-5 text-foreground ml-0.5" fill="currentColor" />
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/90 backdrop-blur-sm transition-transform duration-300 group-hover:scale-110">
+                  <Play className="h-5 w-5 text-primary-foreground ml-0.5" fill="currentColor" />
                 </div>
               </div>
             </div>

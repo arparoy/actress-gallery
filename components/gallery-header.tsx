@@ -29,8 +29,8 @@ export function GalleryHeader({
     <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-screen-2xl items-center justify-between px-4 py-4 md:px-8">
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-secondary">
-            <LayoutGrid className="h-5 w-5 text-foreground" />
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
+            <LayoutGrid className="h-5 w-5 text-primary-foreground" />
           </div>
           <div>
             <h1 className="text-lg font-semibold leading-tight tracking-tight text-foreground">
@@ -49,7 +49,7 @@ export function GalleryHeader({
               onClick={() => onFilterChange(filter.key)}
               className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-all ${
                 activeFilter === filter.key
-                  ? "bg-foreground text-background shadow-sm"
+                  ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
@@ -57,7 +57,7 @@ export function GalleryHeader({
               <span className="hidden sm:inline">{filter.label}</span>
               <span
                 className={`ml-0.5 text-xs ${
-                  activeFilter === filter.key ? "text-background/70" : "text-muted-foreground/70"
+                  activeFilter === filter.key ? "text-primary-foreground/70" : "text-muted-foreground/70"
                 }`}
               >
                 {filter.count}
