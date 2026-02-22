@@ -8,12 +8,19 @@ const VIDEO_EXTENSIONS = [".mp4", ".webm", ".mov"]
 
 export interface MediaItem {
   name: string
+  displayName: string
   src: string
   type: "image" | "video"
 }
 
-function scanDirectory(dirPath: string, basePath: string): MediaItem[] {
-  const items: MediaItem[] = []
+interface RawMediaItem {
+  name: string
+  src: string
+  type: "image" | "video"
+}
+
+function scanDirectory(dirPath: string, basePath: string): RawMediaItem[] {
+  const items: RawMediaItem[] = []
 
   if (!fs.existsSync(dirPath)) {
     return items
@@ -53,5 +60,15 @@ export async function GET() {
   // Sort by name
   items.sort((a, b) => a.name.localeCompare(b.name))
 
-  return NextResponse.json(items)
+  // Assign sequential display names with "actress-gallery" prefix
+  const itemsWithDisplayNames = items.map((item, index) => {
+    const ext = path.extname(item.name).toLowerCase()
+    const paddedIndex = String(index + 1).padStart(2, "0")
+    return {
+      ...item,
+      displayName: `actress-gallery${paddedIndex}${ext}`,
+    }
+  })
+
+  return NextResponse.json(itemsWithDisplayNames)
 }
