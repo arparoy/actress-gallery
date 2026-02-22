@@ -43,11 +43,11 @@ export function Gallery() {
       <main className="mx-auto max-w-screen-2xl px-4 py-6 md:px-8">
         {isLoading ? (
           <div className="columns-1 gap-3 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5">
-            {Array.from({ length: 12 }).map((_, i) => (
+            {[240, 300, 200, 260, 220, 280, 310, 190, 250, 270, 230, 290].map((h, i) => (
               <div
                 key={i}
                 className="mb-3 break-inside-avoid animate-pulse rounded-lg bg-secondary"
-                style={{ height: `${180 + Math.random() * 160}px` }}
+                style={{ height: `${h}px` }}
               />
             ))}
           </div>
