@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useCallback } from "react"
-import { X, ChevronLeft, ChevronRight, Download } from "lucide-react"
+import { useEffect, useCallback, useState } from "react"
+import { X, ChevronLeft, ChevronRight, Download, Loader2 } from "lucide-react"
 import type { MediaItem } from "@/app/api/media/route"
 
 interface LightboxProps {
@@ -15,6 +15,29 @@ export function Lightbox({ items, currentIndex, onClose, onNavigate }: LightboxP
   const item = items[currentIndex]
   const hasPrev = currentIndex > 0
   const hasNext = currentIndex < items.length - 1
+  const [downloading, setDownloading] = useState(false)
+
+  const handleDownload = useCallback(async () => {
+    if (!item || downloading) return
+    setDownloading(true)
+    try {
+      const res = await fetch(item.src)
+      const blob = await res.blob()
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement("a")
+      a.href = url
+      a.download = item.displayName
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+    } catch {
+      // Fallback: open in new tab
+      window.open(item.src, "_blank")
+    } finally {
+      setDownloading(false)
+    }
+  }, [item, downloading])
 
   const handlePrev = useCallback(() => {
     if (hasPrev) onNavigate(currentIndex - 1)
@@ -56,14 +79,18 @@ export function Lightbox({ items, currentIndex, onClose, onNavigate }: LightboxP
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <a
-            href={item.src}
-            download={item.displayName}
-            className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+          <button
+            onClick={handleDownload}
+            disabled={downloading}
+            className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground disabled:opacity-50"
             aria-label="Download file"
           >
-            <Download className="h-4 w-4" />
-          </a>
+            {downloading ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <Download className="h-4 w-4" />
+            )}
+          </button>
           <button
             onClick={onClose}
             className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"

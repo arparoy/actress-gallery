@@ -5,6 +5,15 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "raw.githubusercontent.com",
+      },
+    ],
+  },
+  outputFileTracingExcludes: {
+    "*": ["./public/gallery/**"],
   },
 }
 
